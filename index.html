@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Image</title>
+	<style>
+		img {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			object-fit: cover;
+		}
+	</style>
+</head>
+<body>
+  <img id="randomImage" alt="Random Image" />
+</body>
+<script>
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const coverType = urlParams.get('type');
+
+	if (coverType) {
+	  console.log("Value of Type parameter:", coverType);
+	} else {
+	  coverType = "light";
+	}
+
+	// Function to randomly select an image path
+	function getRandomImage() {
+	  const imageFolder = coverType === "dark" ? "img/dark/" : "img/light/";
+	  const randomIndex = Math.floor(Math.random() * 73) + 1;
+	  return imageFolder + randomIndex + ".png";
+	}
+
+	// Get random image path and set it as the source for the image element
+	const randomImagePath = getRandomImage();
+	document.getElementById("randomImage").src = randomImagePath;
+</script>
+</html>
